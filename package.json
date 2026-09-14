@@ -1,0 +1,14 @@
+{
+  "name": "smart-artisan",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Smart Artisan — Digital Storefronts for India's Traditional Craftspeople",
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "build:frontend": "npm run build --prefix frontend",
+    "start:backend": "npm start --prefix backend",
+    "install:all": "npm install --prefix frontend && npm install --prefix backend"
+  }
+}

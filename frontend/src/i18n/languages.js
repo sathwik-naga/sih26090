@@ -1,0 +1,27 @@
+export const LANGUAGES = [
+  { code: 'en', name: 'English', nativeName: 'English' },
+  { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
+  { code: 'te', name: 'Telugu', nativeName: 'తెలుగు' },
+  { code: 'ta', name: 'Tamil', nativeName: 'தமிழ்' },
+  { code: 'kn', name: 'Kannada', nativeName: 'ಕನ್ನಡ' },
+  { code: 'ml', name: 'Malayalam', nativeName: 'മലയാളം' },
+  { code: 'mr', name: 'Marathi', nativeName: 'मराठी' },
+  { code: 'bn', name: 'Bengali', nativeName: 'বাংলা' },
+  { code: 'gu', name: 'Gujarati', nativeName: 'ગુજરાતી' },
+  { code: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
+  { code: 'or', name: 'Odia', nativeName: 'ଓଡ଼ିଆ' },
+  { code: 'as', name: 'Assamese', nativeName: 'অসমীয়া' },
+  { code: 'ur', name: 'Urdu', nativeName: 'اردو', dir: 'rtl' },
+  { code: 'sa', name: 'Sanskrit', nativeName: 'संस्कृतम्' },
+  { code: 'kok', name: 'Konkani', nativeName: 'कोंकणी' },
+  { code: 'ks', name: 'Kashmiri', nativeName: 'कश्मीरी' },
+  { code: 'sd', name: 'Sindhi', nativeName: 'سنڌي', dir: 'rtl' },
+  { code: 'ne', name: 'Nepali', nativeName: 'नेपाली' },
+  { code: 'mai', name: 'Maithili', nativeName: 'मैथिली' },
+  { code: 'sat', name: 'Santali', nativeName: 'ᱥᱟᱱᱛᱟᱲᱤ' },
+  { code: 'doi', name: 'Dogri', nativeName: 'डोगरी' },
+  { code: 'mni', name: 'Manipuri', nativeName: 'মেইতেই' },
+  { code: 'brx', name: 'Bodo', nativeName: 'बड़ो' },
+];
+
+export const DEFAULT_LANGUAGE = 'en';
