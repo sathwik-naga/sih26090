@@ -5,7 +5,7 @@ import { HeartHandshake } from 'lucide-react';
 
 export function Footer() {
   const { navigateTo, switchRole } = useApp();
-  const { t } = useLanguage();
+  const { t, ts } = useLanguage();
 
   return (
     <footer className="bg-[#FAF6F0] text-stone-600 border-t border-[#EFE7DB] mt-16">
@@ -23,32 +23,32 @@ export function Footer() {
                 🏺
               </div>
               <span className="font-serif font-bold text-xl text-stone-900 tracking-tight group-hover:text-[#C85A32] transition-colors">
-                {t('nav.brand')}
+                Smart Artisan
               </span>
             </div>
             <p className="text-xs text-stone-500 leading-relaxed">
-              {t('hero.statement')}
+              {t('footer.brandDesc')}
             </p>
           </div>
 
           {/* Col 2: Artisan Studio */}
           <div>
             <h4 className="font-serif text-sm font-bold text-stone-900 tracking-wider uppercase mb-3">
-              {t('nav.artisanStudio')}
+              {t('nav.artisanBadge')}
             </h4>
             <ul className="space-y-2 text-xs text-stone-500">
               <li>
-                <button onClick={() => { switchRole('artisan'); navigateTo('dashboard'); }} className="hover:text-[#C85A32] transition-colors">
+                <button onClick={() => { switchRole('artisan'); navigateTo('dashboard'); }} className="hover:text-[#C85A32] transition-colors cursor-pointer">
                   {t('nav.dashboard')}
                 </button>
               </li>
               <li>
-                <button onClick={() => { switchRole('artisan'); navigateTo('add-product'); }} className="hover:text-[#C85A32] transition-colors">
-                  {t('dashboard.addNewCraft')}
+                <button onClick={() => { switchRole('artisan'); navigateTo('add-product'); }} className="hover:text-[#C85A32] transition-colors cursor-pointer">
+                  {t('nav.addProduct')}
                 </button>
               </li>
               <li>
-                <button onClick={() => { switchRole('artisan'); navigateTo('my-products'); }} className="hover:text-[#C85A32] transition-colors">
+                <button onClick={() => { switchRole('artisan'); navigateTo('my-products'); }} className="hover:text-[#C85A32] transition-colors cursor-pointer">
                   {t('nav.myProducts')}
                 </button>
               </li>
@@ -62,18 +62,18 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-xs text-stone-500">
               <li>
-                <button onClick={() => { switchRole('buyer'); navigateTo('marketplace'); }} className="hover:text-[#C85A32] transition-colors">
-                  {t('hero.exploreMarketplace')}
+                <button onClick={() => { switchRole('buyer'); navigateTo('marketplace'); }} className="hover:text-[#C85A32] transition-colors cursor-pointer">
+                  {t('marketplaceSection.badge')}
                 </button>
               </li>
               <li>
-                <button onClick={() => { switchRole('buyer'); navigateTo('marketplace'); }} className="hover:text-[#C85A32] transition-colors">
-                  {t('marketplace.wholesaleAvailable')}
+                <button onClick={() => { switchRole('buyer'); navigateTo('marketplace'); }} className="hover:text-[#C85A32] transition-colors cursor-pointer">
+                  {t('matcher.highDemand')}
                 </button>
               </li>
               <li>
-                <button onClick={() => { switchRole('buyer'); navigateTo('marketplace'); }} className="hover:text-[#C85A32] transition-colors">
-                  {t('marketplace.enquireNow')}
+                <button onClick={() => { switchRole('buyer'); navigateTo('marketplace'); }} className="hover:text-[#C85A32] transition-colors cursor-pointer">
+                  {t('productDetail.inquireNow')}
                 </button>
               </li>
             </ul>
@@ -82,12 +82,12 @@ export function Footer() {
           {/* Col 4: Craft Regions */}
           <div>
             <h4 className="font-serif text-sm font-bold text-stone-900 tracking-wider uppercase mb-3">
-              Craft Regions
+              {t('hero.statsRegions')}
             </h4>
             <div className="flex flex-wrap gap-1.5 mb-3">
-              {['Bastar', 'Madhubani', 'Channapatna', 'Kutch', 'Jaipur'].map(region => (
+              {['Rajasthan', 'West Bengal', 'Karnataka', 'Gujarat', 'Jammu & Kashmir'].map(region => (
                 <span key={region} className="text-[11px] bg-white border border-[#EFE7DB] text-stone-600 px-2.5 py-0.5 rounded-lg">
-                  {region}
+                  {ts(region)}
                 </span>
               ))}
             </div>
@@ -98,10 +98,10 @@ export function Footer() {
         </div>
 
         <div className="pt-8 mt-8 border-t border-[#EFE7DB] flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
-          <p>© 2026 {t('nav.brand')}. All rights reserved.</p>
+          <p>© 2026 Smart Artisan. {t('footer.rights')}</p>
           <div className="flex items-center gap-1 text-stone-600 font-medium">
             <HeartHandshake className="w-3.5 h-3.5 text-[#C85A32]" />
-            <span>{t('hero.zeroCommission')}</span>
+            <span>{t('footer.madeWithLove')}</span>
           </div>
         </div>
       </div>

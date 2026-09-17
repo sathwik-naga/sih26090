@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../i18n/LanguageContext';
 import { Badge } from '../components/Badge';
 import { 
   ArrowLeft, 
@@ -11,26 +12,24 @@ import {
   Mail, 
   Package, 
   Calendar, 
-  MessageSquare, 
-  MapPin, 
   ShieldCheck,
-  Award,
-  Sparkles,
-  ExternalLink
+  Sparkles
 } from 'lucide-react';
 
 export function EnquiryPage() {
-  const { products, selectedProductId, addInquiry, navigateTo, switchRole } = useApp();
+  const { products, selectedProductId, addInquiry, navigateTo } = useApp();
+  const { t, tp, tc, ts } = useLanguage();
 
-  const product = products.find(p => p.id === selectedProductId) || products[0];
+  const rawProduct = products.find(p => p.id === selectedProductId) || products[0];
+  const product = rawProduct ? tp(rawProduct) : null;
 
   const [formData, setFormData] = useState({
     buyerName: '',
     buyerOrg: '',
-    buyerType: 'Boutique Retailer',
+    buyerType: 'Retail Boutique',
     buyerPhone: '',
     buyerEmail: '',
-    quantity: product?.moq || 10,
+    quantity: rawProduct?.moq || 10,
     orderType: 'Wholesale Order',
     targetDate: '2026-10-30',
     message: '',
@@ -39,15 +38,17 @@ export function EnquiryPage() {
   const [submitted, setSubmitted] = useState(false);
   const [createdInquiryId, setCreatedInquiryId] = useState(null);
 
+  if (!product) return null;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.buyerName || !formData.buyerPhone) {
-      alert('Please provide your name and phone number.');
+      alert(t('enquiry.validationNamePhone'));
       return;
     }
 
     const newInq = addInquiry({
-      productId: product.id,
+      productId: rawProduct.id,
       ...formData,
       quantity: Number(formData.quantity),
     });
@@ -62,18 +63,18 @@ export function EnquiryPage() {
       {/* Top Breadcrumb */}
       <div>
         <button
-          onClick={() => navigateTo('product-detail', product.id)}
-          className="text-xs font-semibold text-stone-500 hover:text-stone-800 flex items-center gap-1 mb-2"
+          onClick={() => navigateTo('product-detail', rawProduct.id)}
+          className="text-xs font-semibold text-stone-500 hover:text-stone-800 flex items-center gap-1 mb-2 cursor-pointer"
         >
-          <ArrowLeft className="w-3.5 h-3.5" /> Back to Product
+          <ArrowLeft className="w-3.5 h-3.5" /> {t('enquiry.backToProduct')}
         </button>
         <div className="flex items-center gap-2">
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-            Direct Buyer Enquiry & Wholesale Quote
+            {t('enquiry.title')}
           </h1>
         </div>
         <p className="text-xs sm:text-sm text-stone-500 mt-1">
-          Connect directly with master craftsmen without intermediary commissions or hidden markups.
+          {t('enquiry.subtitle')}
         </p>
       </div>
 
@@ -86,13 +87,13 @@ export function EnquiryPage() {
 
           <div className="space-y-2 max-w-lg mx-auto">
             <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-200">
-              Direct Transmission Verified
+              {t('enquiry.transmissionVerified')}
             </span>
             <h2 className="font-serif text-3xl font-bold text-stone-900">
-              Your Enquiry Has Been Logged!
+              {t('enquiry.enquiryLogged')}
             </h2>
             <p className="text-sm text-stone-600 leading-relaxed">
-              Your request for <span className="font-semibold text-stone-900">{formData.quantity} units</span> of <span className="font-semibold text-[#C85A32]">"{product.name}"</span> has been instantly delivered to <span className="font-semibold text-stone-900">{product.artisanName}</span>.
+              {t('enquiry.enquiryLoggedDesc')}
             </p>
           </div>
 
@@ -106,18 +107,18 @@ export function EnquiryPage() {
               />
               <div>
                 <h4 className="font-serif font-bold text-sm text-stone-900">{product.artisanName}</h4>
-                <p className="text-stone-500">{product.villageCluster || product.artisanState}, India</p>
+                <p className="text-stone-500">{ts(rawProduct.villageCluster || rawProduct.artisanState)}, India</p>
               </div>
             </div>
 
             <div className="space-y-1.5 text-stone-600">
               <p className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#C85A32]" />
-                <span>Direct WhatsApp / Call: <strong>+91 94255 83120</strong></span>
+                <span>{t('enquiry.phoneWhatsapp')}: <strong>+91 94255 83120</strong></span>
               </p>
               <p className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>Verified GI Provenance Master Craftsperson</span>
+                <span>{t('productDetail.verifiedMaster')}</span>
               </p>
             </div>
           </div>
@@ -126,16 +127,16 @@ export function EnquiryPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4 max-w-md mx-auto">
             <button
               onClick={() => navigateTo('marketplace')}
-              className="w-full sm:w-auto px-6 py-3 bg-[#C85A32] hover:bg-[#A33D1C] text-white text-xs font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 py-3 bg-[#C85A32] hover:bg-[#A33D1C] text-white text-xs font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Back to Marketplace</span>
+              <span>{t('enquiry.returnToMarketplace')}</span>
               <ArrowLeft className="w-4 h-4" />
             </button>
             <button
-              onClick={() => navigateTo('landing')}
-              className="w-full sm:w-auto px-6 py-3 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-bold rounded-2xl transition-colors"
+              onClick={() => navigateTo('dashboard')}
+              className="w-full sm:w-auto px-6 py-3 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-bold rounded-2xl transition-colors cursor-pointer"
             >
-              Platform Overview
+              {t('enquiry.viewDashboard')}
             </button>
           </div>
         </div>
@@ -145,7 +146,7 @@ export function EnquiryPage() {
           
           {/* Left Column: Product Summary Card (4 cols) */}
           <div className="lg:col-span-4 bg-white rounded-3xl p-5 border border-[#EFE7DB] shadow-sm space-y-4">
-            <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">Selected Craft Piece</span>
+            <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">{t('productDetail.craftSpecs')}</span>
             
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-stone-100">
               <img
@@ -154,31 +155,31 @@ export function EnquiryPage() {
                 className="w-full h-full object-cover"
               />
               <div className="absolute top-2 left-2">
-                {product.giTag && <Badge type="gi" text="GI Tagged" />}
+                {rawProduct.giTag && <Badge type="gi" text={t('productDetail.giCertified')} />}
               </div>
             </div>
 
             <div className="space-y-2">
               <h3 className="font-serif font-bold text-stone-900 text-base leading-snug">{product.name}</h3>
-              <p className="text-xs text-stone-500">By <strong>{product.artisanName}</strong> ({product.artisanState})</p>
+              <p className="text-xs text-stone-500">{t('productDetail.directMakerContact')}: <strong>{product.artisanName}</strong> ({ts(rawProduct.artisanState)})</p>
 
               <div className="pt-2 border-t border-stone-100 space-y-1 text-xs">
                 <div className="flex justify-between">
-                  <span className="text-stone-400">Retail Unit Price:</span>
+                  <span className="text-stone-400">{t('productDetail.directRetail')}:</span>
                   <span className="font-bold text-stone-800 font-sans">₹{product.price}</span>
                 </div>
                 {product.wholesalePrice && (
                   <div className="flex justify-between text-amber-800 font-semibold">
-                    <span>Wholesale Rate:</span>
+                    <span>{t('productDetail.wholesaleRate')}:</span>
                     <span>₹{product.wholesalePrice} / unit</span>
                   </div>
                 )}
                 <div className="flex justify-between text-stone-500">
-                  <span>Minimum Order (MOQ):</span>
-                  <span>{product.moq || 5} units</span>
+                  <span>{t('productDetail.moqLabel')}:</span>
+                  <span>{product.moq || 5} {t('productCard.moqUnits')}</span>
                 </div>
                 <div className="flex justify-between text-stone-500">
-                  <span>Lead Time:</span>
+                  <span>{t('productDetail.leadTime')}:</span>
                   <span>{product.leadTime || '10-14 days'}</span>
                 </div>
               </div>
@@ -186,7 +187,7 @@ export function EnquiryPage() {
 
             <div className="p-3 bg-[#FAF0E6] rounded-xl text-[11px] text-stone-600 flex items-start gap-2 border border-[#EACBB8]">
               <Sparkles className="w-3.5 h-3.5 text-[#C85A32] shrink-0 mt-0.5" />
-              <p>Direct negotiation: The artisan can customize dimensions, base finishes, and packing to suit your requirements.</p>
+              <p>{t('productDetail.careGuide')}</p>
             </div>
           </div>
 
@@ -196,13 +197,13 @@ export function EnquiryPage() {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">Your Full Name *</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">{t('enquiry.fullName')}</label>
                   <div className="relative">
                     <User className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Vikramaditya Singhania"
+                      placeholder={t('enquiry.fullNamePlaceholder')}
                       value={formData.buyerName}
                       onChange={(e) => setFormData({ ...formData, buyerName: e.target.value })}
                       className="w-full pl-9 pr-3 py-2.5 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C85A32] focus:bg-white"
@@ -211,12 +212,12 @@ export function EnquiryPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">Company / Brand Name</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">{t('enquiry.orgName')}</label>
                   <div className="relative">
                     <Building className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
                     <input
                       type="text"
-                      placeholder="e.g. Heritage Living India"
+                      placeholder={t('enquiry.orgPlaceholder')}
                       value={formData.buyerOrg}
                       onChange={(e) => setFormData({ ...formData, buyerOrg: e.target.value })}
                       className="w-full pl-9 pr-3 py-2.5 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C85A32] focus:bg-white"
@@ -227,13 +228,13 @@ export function EnquiryPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">WhatsApp / Phone Number *</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">{t('enquiry.phone')}</label>
                   <div className="relative">
                     <Phone className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
                     <input
                       type="tel"
                       required
-                      placeholder="+91 98102 33445"
+                      placeholder={t('enquiry.phonePlaceholder')}
                       value={formData.buyerPhone}
                       onChange={(e) => setFormData({ ...formData, buyerPhone: e.target.value })}
                       className="w-full pl-9 pr-3 py-2.5 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C85A32] focus:bg-white"
@@ -242,12 +243,12 @@ export function EnquiryPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">Email Address</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">{t('enquiry.email')}</label>
                   <div className="relative">
                     <Mail className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
                     <input
                       type="email"
-                      placeholder="buyer@craftstore.com"
+                      placeholder={t('enquiry.emailPlaceholder')}
                       value={formData.buyerEmail}
                       onChange={(e) => setFormData({ ...formData, buyerEmail: e.target.value })}
                       className="w-full pl-9 pr-3 py-2.5 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C85A32] focus:bg-white"
@@ -258,22 +259,21 @@ export function EnquiryPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">Inquiry Type</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">{t('enquiry.orderType')}</label>
                   <select
                     value={formData.orderType}
                     onChange={(e) => setFormData({ ...formData, orderType: e.target.value })}
                     className="w-full px-3 py-2.5 text-xs sm:text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C85A32]"
                   >
-                    <option>Wholesale Order</option>
-                    <option>Corporate Gifting</option>
-                    <option>Custom Modification</option>
-                    <option>Sample Unit</option>
-                    <option>Export Inquiry</option>
+                    <option value="Wholesale Order">{t('enquiry.orderTypeWholesale')}</option>
+                    <option value="Corporate Gifting">{t('enquiry.typeCorporate')}</option>
+                    <option value="Custom Modification">{t('enquiry.orderTypeBespoke')}</option>
+                    <option value="Sample Unit">{t('enquiry.orderTypeSample')}</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">Quantity Needed</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">{t('enquiry.quantity')}</label>
                   <div className="relative">
                     <Package className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
                     <input
@@ -287,7 +287,7 @@ export function EnquiryPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">Target Delivery Date</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">{t('enquiry.targetDate')}</label>
                   <div className="relative">
                     <Calendar className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
                     <input
@@ -302,11 +302,11 @@ export function EnquiryPage() {
 
               <div>
                 <label className="block text-xs font-bold text-stone-700 mb-1">
-                  Specific Requirements or Custom Notes
+                  {t('enquiry.message')}
                 </label>
                 <textarea
                   rows="4"
-                  placeholder="Mention any custom dimensions, color variations, packaging requirements (e.g. wooden gift boxes), or destination pincode for freight quotes..."
+                  placeholder={t('enquiry.messagePlaceholder')}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C85A32] focus:bg-white"
@@ -316,14 +316,14 @@ export function EnquiryPage() {
               <div className="pt-2 flex items-center justify-between">
                 <span className="text-[11px] text-stone-400 flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  Direct craft connection • No hidden charges
+                  {t('marketplace.directGuarantee')}
                 </span>
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-[#C85A32] hover:bg-[#A33D1C] text-white font-semibold text-xs sm:text-sm rounded-2xl shadow-sm transition-all flex items-center gap-2"
+                  className="px-6 py-3 bg-[#C85A32] hover:bg-[#A33D1C] text-white font-semibold text-xs sm:text-sm rounded-2xl shadow-sm transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
-                  Submit Direct Enquiry
+                  {t('enquiry.submitBtn')}
                 </button>
               </div>
 

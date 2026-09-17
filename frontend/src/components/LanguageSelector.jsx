@@ -3,7 +3,7 @@ import { useLanguage } from '../i18n/LanguageContext';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 
 export function LanguageSelector({ isMobile = false }) {
-  const { currentLanguage, currentLangObj, languages, changeLanguage } = useLanguage();
+  const { currentLanguage, currentLangObj, languages, changeLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -29,7 +29,7 @@ export function LanguageSelector({ isMobile = false }) {
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-semibold text-stone-500 flex items-center gap-1.5">
             <Globe className="w-3.5 h-3.5 text-[#C85A32]" />
-            <span>Select Language / भाषा:</span>
+            <span>{t('languageSelector.label')}:</span>
           </span>
           <span className="text-xs font-bold text-[#C85A32]">
             {currentLangObj.nativeName}
@@ -68,7 +68,7 @@ export function LanguageSelector({ isMobile = false }) {
         onClick={() => setIsOpen(!isOpen)}
         aria-haspopup="true"
         aria-expanded={isOpen}
-        title="Change Language"
+        title={t('languageSelector.label')}
         className="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold text-stone-700 bg-white hover:bg-stone-50 border border-[#EFE7DB] hover:border-[#C85A32]/40 shadow-xs flex items-center gap-2 transition-all cursor-pointer group"
       >
         <Globe className="w-4 h-4 text-[#C85A32] group-hover:rotate-12 transition-transform shrink-0" />
@@ -80,8 +80,8 @@ export function LanguageSelector({ isMobile = false }) {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-64 max-h-80 overflow-y-auto rounded-2xl bg-white border border-[#EFE7DB] shadow-xl z-50 p-2 space-y-1 animate-in fade-in-50 zoom-in-95 duration-150">
           <div className="px-3 py-1.5 border-b border-stone-100 text-[11px] font-bold text-stone-400 uppercase tracking-wider flex items-center justify-between">
-            <span>Choose Language</span>
-            <span className="text-[#C85A32]">{languages.length} Languages</span>
+            <span>{t('languageSelector.selectPrompt')}</span>
+            <span className="text-[#C85A32]">{languages.length} {t('nav.switchLanguage')}</span>
           </div>
 
           <div className="space-y-0.5 pt-1">

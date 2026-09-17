@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { INITIAL_ARTISAN, INITIAL_PRODUCTS, INITIAL_INQUIRIES } from '../data/mockData';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const AppContext = createContext();
 
 export function AppProvider({ children }) {
+  const { t } = useLanguage();
+
   // Load products from localStorage or fallback to initial (auto-upgrades old unsplash placeholders to 10 authentic craft images)
   const [products, setProducts] = useState(() => {
     try {
@@ -87,7 +90,7 @@ export function AppProvider({ children }) {
     let targetPage = page;
     if (currentRole === 'buyer' && artisanOnlyPages.includes(targetPage)) {
       targetPage = 'marketplace';
-      showToast('Artisan Studio access is only available in Artisan mode.', 'info');
+      showToast(t('toasts.artisanOnly'), 'info');
     }
 
     if (prodId) {
@@ -101,10 +104,10 @@ export function AppProvider({ children }) {
     setCurrentRole(role);
     if (role === 'artisan') {
       navigateTo('dashboard');
-      showToast('Switched to Artisan Studio mode', 'info');
+      showToast(t('toasts.switchedArtisan'), 'info');
     } else {
       navigateTo('marketplace');
-      showToast('Switched to Buyer Marketplace mode', 'info');
+      showToast(t('toasts.switchedBuyer'), 'info');
     }
   };
 
@@ -123,25 +126,25 @@ export function AppProvider({ children }) {
     };
 
     setProducts(prev => [newProduct, ...prev]);
-    showToast(`"${productData.name}" has been added to your digital catalog!`);
+    showToast(`"${productData.name}" ${t('toasts.productAdded')}`);
     return newProduct;
   };
 
   const updateProduct = (id, updatedFields) => {
     setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updatedFields } : p));
-    showToast('Product catalog details updated.');
+    showToast(t('toasts.productUpdated'));
   };
 
   const deleteProduct = (id) => {
     setProducts(prev => prev.filter(p => p.id !== id));
-    showToast('Product removed from catalog.', 'info');
+    showToast(t('toasts.productRemoved'), 'info');
   };
 
   const toggleStockStatus = (id) => {
     setProducts(prev => prev.map(p => {
       if (p.id === id) {
         const nextStatus = p.stockStatus === 'In Stock' ? 'Made to Order' : 'In Stock';
-        showToast(`Product marked as "${nextStatus}"`);
+        showToast(`${t('toasts.markedStatus')} "${nextStatus}"`);
         return { ...p, stockStatus: nextStatus };
       }
       return p;
@@ -162,7 +165,7 @@ export function AppProvider({ children }) {
     setInquiries(prev => [newInquiry, ...prev]);
     // increment inquiries count on product
     setProducts(prev => prev.map(p => p.id === inquiryData.productId ? { ...p, inquiriesCount: (p.inquiriesCount || 0) + 1 } : p));
-    showToast('Inquiry successfully sent to the artisan!');
+    showToast(t('toasts.inquirySent'));
     return newInquiry;
   };
 
@@ -173,13 +176,13 @@ export function AppProvider({ children }) {
       }
       return inq;
     }));
-    showToast(`Inquiry status updated to ${status}`);
+    showToast(`${t('toasts.inquiryUpdated')} ${status}`);
   };
 
   const resetSampleData = () => {
     setProducts(INITIAL_PRODUCTS);
     setInquiries(INITIAL_INQUIRIES);
-    showToast('Sample catalog & inquiries reset to default.', 'info');
+    showToast(t('toasts.sampleReset'), 'info');
   };
 
   return (

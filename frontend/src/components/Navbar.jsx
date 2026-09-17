@@ -83,7 +83,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 sm:h-20 gap-3">
           
           {/* ========================================================================= */}
-          {/* BRAND LOGO                                                               */}
+          {/* BRAND LOGO - Smart Artisan is preserved as the brand name                */}
           {/* ========================================================================= */}
           <div 
             className="flex items-center gap-3 cursor-pointer group shrink-0 select-none" 
@@ -104,21 +104,21 @@ export function Navbar() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-serif font-bold text-lg sm:text-xl text-stone-900 tracking-tight leading-tight group-hover:text-[#C85A32] transition-colors">
-                  {t('nav.brand', 'Smart Artisan')}
+                  Smart Artisan
                 </span>
                 {isBuyer && (
                   <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-[#FAF0E6] text-[#C85A32] border border-[#EACBB8]">
-                    Marketplace
+                    {t('nav.marketplace')}
                   </span>
                 )}
                 {isArtisan && (
                   <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-stone-900 text-amber-300">
-                    Artisan Studio
+                    {t('nav.artisanBadge')}
                   </span>
                 )}
               </div>
               <span className="text-[11px] text-stone-500 hidden xl:block">
-                {t('nav.tagline', "Digital Storefronts for India's Traditional Craftspeople")}
+                {t('nav.tagline')}
               </span>
             </div>
           </div>
@@ -134,7 +134,7 @@ export function Navbar() {
                 onClick={() => scrollToSection('artisans')}
                 className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-stone-700 hover:text-[#C85A32] hover:bg-[#FAF0E6]/60 transition-colors cursor-pointer"
               >
-                {t('nav.forArtisans')}
+                {t('artisanSection.badge')}
               </button>
               <button
                 onClick={() => scrollToSection('marketplace')}
@@ -146,12 +146,12 @@ export function Navbar() {
                 onClick={() => scrollToSection('how-it-works')}
                 className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-stone-700 hover:text-[#C85A32] hover:bg-[#FAF0E6]/60 transition-colors cursor-pointer"
               >
-                {t('nav.howItWorks')}
+                {t('howItWorks.title')}
               </button>
             </nav>
           )}
 
-          {/* 2. BUYER MARKETPLACE NAVIGATION (Clean & Minimal: Smart Artisan | Marketplace) */}
+          {/* 2. BUYER MARKETPLACE NAVIGATION */}
           {isBuyer && (
             <nav className="hidden md:flex items-center gap-2">
               <button
@@ -163,12 +163,12 @@ export function Navbar() {
                 }`}
               >
                 <ShoppingBag className="w-4 h-4 text-[#C85A32]" />
-                <span>{t('nav.marketplace', 'Marketplace')}</span>
+                <span>{t('nav.marketplace')}</span>
               </button>
             </nav>
           )}
 
-          {/* 3. ARTISAN STUDIO NAVIGATION (Smart Artisan | Dashboard | Products | Add Product) */}
+          {/* 3. ARTISAN STUDIO NAVIGATION */}
           {isArtisan && (
             <nav className="hidden lg:flex items-center gap-2">
               <button
@@ -180,7 +180,7 @@ export function Navbar() {
                 }`}
               >
                 <LayoutDashboard className="w-4 h-4" />
-                <span>{t('nav.dashboard', 'Dashboard')}</span>
+                <span>{t('nav.dashboard')}</span>
                 {newInquiriesCount > 0 && (
                   <span className="w-4 h-4 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-bold">
                     {newInquiriesCount}
@@ -197,7 +197,7 @@ export function Navbar() {
                 }`}
               >
                 <Boxes className="w-4 h-4" />
-                <span>{t('nav.myProducts', 'Products')}</span>
+                <span>{t('nav.myProducts')}</span>
               </button>
 
               <button
@@ -209,7 +209,7 @@ export function Navbar() {
                 }`}
               >
                 <PackagePlus className="w-4 h-4" />
-                <span>{t('nav.addProduct', 'Add Product')}</span>
+                <span>{t('nav.addProduct')}</span>
               </button>
             </nav>
           )}
@@ -219,7 +219,7 @@ export function Navbar() {
           {/* ========================================================================= */}
           <div className="hidden md:flex items-center gap-3">
             
-            {/* Multi-language Selector (Always accessible in all roles & pages!) */}
+            {/* Multi-language Selector (Supports all 23 languages) */}
             <LanguageSelector />
 
             {/* A. LANDING PAGE CTAs */}
@@ -233,7 +233,7 @@ export function Navbar() {
                   className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-[#FAF0E6] text-[#C85A32] border border-[#EACBB8] hover:bg-[#C85A32] hover:text-white transition-all duration-200 flex items-center gap-1.5 shadow-xs cursor-pointer group"
                 >
                   <Store className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  <span>{t('nav.artisanStudio', 'Artisan Studio')}</span>
+                  <span>{t('nav.artisanBadge')}</span>
                 </button>
 
                 <button
@@ -244,12 +244,12 @@ export function Navbar() {
                   className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-stone-900 text-white hover:bg-stone-800 transition-all duration-200 flex items-center gap-1.5 shadow-xs cursor-pointer group"
                 >
                   <ShoppingBag className="w-4 h-4 text-amber-300 group-hover:scale-110 transition-transform" />
-                  <span>{t('nav.exploreMarketplace', 'Explore Marketplace')}</span>
+                  <span>{t('nav.marketplace')}</span>
                 </button>
               </div>
             )}
 
-            {/* B. BUYER MARKETPLACE MENU ([Smart Artisan Logo] [Marketplace] [Language] [Buyer Menu]) */}
+            {/* B. BUYER MARKETPLACE MENU */}
             {isBuyer && (
               <div className="relative" ref={buyerMenuRef}>
                 <button
@@ -259,15 +259,15 @@ export function Navbar() {
                   <div className="w-6 h-6 rounded-lg bg-[#FAF0E6] text-[#C85A32] flex items-center justify-center font-bold text-xs">
                     <User className="w-3.5 h-3.5" />
                   </div>
-                  <span className="font-bold">Buyer Menu</span>
+                  <span className="font-bold">{t('artisanSection.featureDirect')}</span>
                   <ChevronDown className={`w-3.5 h-3.5 text-stone-400 transition-transform duration-200 ${buyerMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {buyerMenuOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-[#EFE7DB] py-2 z-50 animate-in fade-in-50 duration-150 text-left">
                     <div className="px-4 py-2.5 border-b border-stone-100">
-                      <p className="text-xs font-bold text-stone-900">Buyer Workspace</p>
-                      <p className="text-[11px] text-stone-500 truncate">Connecting directly with Indian makers</p>
+                      <p className="text-xs font-bold text-stone-900">{t('marketplaceSection.badge')}</p>
+                      <p className="text-[11px] text-stone-500 truncate">{t('nav.tagline')}</p>
                     </div>
 
                     <div className="p-1 space-y-0.5">
@@ -281,7 +281,7 @@ export function Navbar() {
                         }`}
                       >
                         <ShoppingBag className="w-4 h-4 text-[#C85A32]" />
-                        <span>Explore Marketplace</span>
+                        <span>{t('nav.marketplace')}</span>
                       </button>
 
                       <button
@@ -292,7 +292,7 @@ export function Navbar() {
                         className="w-full text-left px-3.5 py-2 rounded-xl text-xs text-stone-700 hover:bg-stone-50 flex items-center gap-2.5 cursor-pointer"
                       >
                         <Sparkles className="w-4 h-4 text-stone-400" />
-                        <span>Platform Overview</span>
+                        <span>{t('nav.home')}</span>
                       </button>
                     </div>
 
@@ -308,7 +308,7 @@ export function Navbar() {
                       >
                         <span className="flex items-center gap-2 font-medium">
                           <Store className="w-4 h-4 text-[#C85A32]" />
-                          Switch to Artisan Studio
+                          {t('nav.artisanBadge')}
                         </span>
                         <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:translate-x-0.5 transition-transform" />
                       </button>
@@ -318,7 +318,7 @@ export function Navbar() {
               </div>
             )}
 
-            {/* C. ARTISAN STUDIO MENU ([Smart Artisan Logo] [Dashboard] [Products] [Add Product] [Language] [Artisan Menu]) */}
+            {/* C. ARTISAN STUDIO MENU */}
             {isArtisan && (
               <div className="relative flex items-center gap-2" ref={artisanMenuRef}>
                 <button
@@ -328,15 +328,15 @@ export function Navbar() {
                   <div className="w-6 h-6 rounded-lg bg-stone-900 text-amber-300 flex items-center justify-center font-bold text-xs">
                     <Store className="w-3.5 h-3.5" />
                   </div>
-                  <span className="font-bold truncate max-w-[120px]">{artisan?.name || 'Artisan'}</span>
+                  <span className="font-bold truncate max-w-[120px]">{artisan?.name || t('nav.artisanBadge')}</span>
                   <ChevronDown className={`w-3.5 h-3.5 text-stone-400 transition-transform duration-200 ${artisanMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {artisanMenuOpen && (
                   <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-[#EFE7DB] py-2 z-50 animate-in fade-in-50 duration-150 text-left top-full">
                     <div className="px-4 py-2.5 border-b border-stone-100">
-                      <p className="text-xs font-bold text-stone-900">{artisan?.name || 'Master Artisan'}</p>
-                      <p className="text-[11px] text-stone-500 truncate">{artisan?.village || 'Heritage Craft Cluster'}</p>
+                      <p className="text-xs font-bold text-stone-900">{artisan?.name || t('nav.artisanBadge')}</p>
+                      <p className="text-[11px] text-stone-500 truncate">{artisan?.village || t('hero.statsRegions')}</p>
                     </div>
 
                     <div className="p-1 space-y-0.5">
@@ -350,7 +350,7 @@ export function Navbar() {
                         }`}
                       >
                         <LayoutDashboard className="w-4 h-4 text-[#C85A32]" />
-                        <span>Studio Dashboard</span>
+                        <span>{t('nav.dashboard')}</span>
                       </button>
 
                       <button
@@ -363,7 +363,7 @@ export function Navbar() {
                         }`}
                       >
                         <Boxes className="w-4 h-4 text-stone-500" />
-                        <span>My Products Catalog</span>
+                        <span>{t('nav.myProducts')}</span>
                       </button>
 
                       <button
@@ -376,7 +376,7 @@ export function Navbar() {
                         }`}
                       >
                         <PackagePlus className="w-4 h-4 text-[#C85A32]" />
-                        <span>Add New Craft Item</span>
+                        <span>{t('nav.addProduct')}</span>
                       </button>
                     </div>
 
@@ -392,7 +392,7 @@ export function Navbar() {
                       >
                         <span className="flex items-center gap-2 font-medium">
                           <ShoppingBag className="w-4 h-4 text-stone-500" />
-                          View as Buyer
+                          {t('nav.marketplace')}
                         </span>
                         <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:translate-x-0.5 transition-transform" />
                       </button>
@@ -405,7 +405,7 @@ export function Navbar() {
                         className="w-full text-left px-3.5 py-2 rounded-xl text-xs text-stone-700 hover:bg-stone-50 flex items-center gap-2.5 cursor-pointer"
                       >
                         <Sparkles className="w-4 h-4 text-stone-400" />
-                        <span>Platform Overview</span>
+                        <span>{t('nav.home')}</span>
                       </button>
 
                       <button
@@ -416,7 +416,7 @@ export function Navbar() {
                         className="w-full text-left px-3.5 py-2 rounded-xl text-xs text-stone-500 hover:text-stone-800 hover:bg-stone-50 flex items-center gap-2.5 cursor-pointer"
                       >
                         <RotateCcw className="w-3.5 h-3.5 text-stone-400" />
-                        <span>Reset Sample Data</span>
+                        <span>{t('common.retry')}</span>
                       </button>
                     </div>
                   </div>
@@ -448,7 +448,7 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#FAF6F0] border-b border-[#EFE7DB] px-4 pt-3 pb-6 space-y-3 shadow-xl animate-in slide-in-from-top duration-200">
           
-          {/* Mobile Language Selector (20+ Indian Languages) */}
+          {/* Mobile Language Selector */}
           <LanguageSelector isMobile={true} />
 
           {/* 1. Mobile Landing Page Drawer */}
@@ -459,7 +459,7 @@ export function Navbar() {
                   onClick={() => scrollToSection('artisans')}
                   className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold text-stone-700 hover:bg-white flex items-center justify-between"
                 >
-                  <span>{t('nav.forArtisans')}</span>
+                  <span>{t('artisanSection.badge')}</span>
                   <ArrowRight className="w-4 h-4 text-stone-400" />
                 </button>
                 <button
@@ -473,7 +473,7 @@ export function Navbar() {
                   onClick={() => scrollToSection('how-it-works')}
                   className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold text-stone-700 hover:bg-white flex items-center justify-between"
                 >
-                  <span>{t('nav.howItWorks')}</span>
+                  <span>{t('howItWorks.title')}</span>
                   <ArrowRight className="w-4 h-4 text-stone-400" />
                 </button>
               </div>
@@ -489,7 +489,7 @@ export function Navbar() {
                   className="w-full py-3 px-4 rounded-xl text-sm font-bold bg-[#FAF0E6] text-[#C85A32] border border-[#EACBB8] flex items-center justify-center gap-2 shadow-xs"
                 >
                   <Store className="w-4 h-4" />
-                  <span>{t('nav.artisanStudio')}</span>
+                  <span>{t('nav.artisanBadge')}</span>
                 </button>
                 <button
                   onClick={() => {
@@ -500,7 +500,7 @@ export function Navbar() {
                   className="w-full py-3 px-4 rounded-xl text-sm font-bold bg-stone-900 text-white flex items-center justify-center gap-2 shadow-xs"
                 >
                   <ShoppingBag className="w-4 h-4 text-amber-300" />
-                  <span>{t('nav.exploreMarketplace')}</span>
+                  <span>{t('nav.marketplace')}</span>
                 </button>
               </div>
             </div>
@@ -521,7 +521,7 @@ export function Navbar() {
                 >
                   <span className="flex items-center gap-2">
                     <ShoppingBag className="w-4 h-4 text-[#C85A32]" />
-                    <span>Marketplace Catalog</span>
+                    <span>{t('nav.marketplace')}</span>
                   </span>
                   <ArrowRight className="w-4 h-4 text-stone-400" />
                 </button>
@@ -535,7 +535,7 @@ export function Navbar() {
                 >
                   <span className="flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-stone-400" />
-                    <span>Platform Overview</span>
+                    <span>{t('nav.home')}</span>
                   </span>
                   <ArrowRight className="w-4 h-4 text-stone-400" />
                 </button>
@@ -550,7 +550,7 @@ export function Navbar() {
                   className="w-full py-2.5 px-3 rounded-xl text-xs font-semibold text-stone-600 bg-stone-100 hover:bg-[#FAF0E6] hover:text-[#C85A32] flex items-center justify-center gap-2"
                 >
                   <Store className="w-4 h-4 text-[#C85A32]" />
-                  <span>Switch to Artisan Studio</span>
+                  <span>{t('nav.artisanBadge')}</span>
                 </button>
               </div>
             </div>
@@ -571,11 +571,11 @@ export function Navbar() {
                 >
                   <span className="flex items-center gap-2">
                     <LayoutDashboard className="w-4 h-4" />
-                    <span>Dashboard</span>
+                    <span>{t('nav.dashboard')}</span>
                   </span>
                   {newInquiriesCount > 0 && (
                     <span className="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full font-bold">
-                      {newInquiriesCount} new
+                      {newInquiriesCount}
                     </span>
                   )}
                 </button>
@@ -591,7 +591,7 @@ export function Navbar() {
                 >
                   <span className="flex items-center gap-2">
                     <Boxes className="w-4 h-4" />
-                    <span>My Products</span>
+                    <span>{t('nav.myProducts')}</span>
                   </span>
                   <ArrowRight className="w-4 h-4 text-stone-400" />
                 </button>
@@ -605,7 +605,7 @@ export function Navbar() {
                 >
                   <span className="flex items-center gap-2">
                     <PackagePlus className="w-4 h-4" />
-                    <span>Add Product</span>
+                    <span>{t('nav.addProduct')}</span>
                   </span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -619,7 +619,7 @@ export function Navbar() {
                 >
                   <span className="flex items-center gap-2">
                     <ShoppingBag className="w-4 h-4 text-stone-400" />
-                    <span>View as Buyer</span>
+                    <span>{t('nav.marketplace')}</span>
                   </span>
                   <ArrowRight className="w-4 h-4 text-stone-400" />
                 </button>
@@ -633,16 +633,16 @@ export function Navbar() {
                 >
                   <span className="flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-stone-400" />
-                    <span>Platform Overview</span>
+                    <span>{t('nav.home')}</span>
                   </span>
                   <ArrowRight className="w-4 h-4 text-stone-400" />
                 </button>
               </div>
 
               <div className="pt-3 border-t border-[#EFE7DB] flex justify-between items-center text-xs text-stone-400">
-                <span>Master Artisan Studio</span>
+                <span>{t('nav.artisanBadge')}</span>
                 <button onClick={resetSampleData} className="underline flex items-center gap-1 cursor-pointer">
-                  <RotateCcw className="w-3 h-3" /> Reset Data
+                  <RotateCcw className="w-3 h-3" /> {t('common.retry')}
                 </button>
               </div>
             </div>

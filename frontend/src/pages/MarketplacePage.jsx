@@ -18,7 +18,7 @@ import {
 
 export function MarketplacePage() {
   const { products, navigateTo } = useApp();
-  const { t } = useLanguage();
+  const { t, tc, ts } = useLanguage();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All Crafts');
@@ -95,9 +95,9 @@ export function MarketplacePage() {
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm('')}
-                className="absolute right-4 text-xs font-semibold text-stone-400 hover:text-stone-700"
+                className="absolute right-4 text-xs font-semibold text-stone-400 hover:text-stone-700 cursor-pointer"
               >
-                Clear
+                {t('marketplace.clear')}
               </button>
             )}
           </div>
@@ -112,13 +112,13 @@ export function MarketplacePage() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-4 py-2 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 isSelected
                   ? 'bg-[#C85A32] text-white shadow-xs'
                   : 'bg-white text-stone-600 border border-[#EFE7DB] hover:bg-stone-50'
               }`}
             >
-              {cat}
+              {cat === 'All Crafts' ? t('categories.all') : tc(cat)}
             </button>
           );
         })}
@@ -131,14 +131,16 @@ export function MarketplacePage() {
         <div className="flex flex-wrap items-center gap-3 text-xs">
           {/* State Filter */}
           <div className="flex items-center gap-1.5">
-            <span className="text-stone-400 font-medium">Cluster:</span>
+            <span className="text-stone-400 font-medium">{t('marketplace.cluster')}</span>
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
               className="px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-stone-800 font-medium focus:outline-none focus:ring-1 focus:ring-[#C85A32]"
             >
               {INDIAN_STATES.map((st) => (
-                <option key={st} value={st}>{st}</option>
+                <option key={st} value={st}>
+                  {st === 'All Regions' ? t('states.all') : ts(st)}
+                </option>
               ))}
             </select>
           </div>
@@ -151,7 +153,7 @@ export function MarketplacePage() {
               onChange={(e) => setOnlyGiTagged(e.target.checked)}
               className="w-3.5 h-3.5 text-[#C85A32] rounded"
             />
-            <span className="font-semibold text-stone-700">GI Tagged Only</span>
+            <span className="font-semibold text-stone-700">{t('marketplace.giOnly')}</span>
           </label>
 
           {/* In Stock only */}
@@ -162,33 +164,33 @@ export function MarketplacePage() {
               onChange={(e) => setOnlyInStock(e.target.checked)}
               className="w-3.5 h-3.5 text-[#C85A32] rounded"
             />
-            <span className="font-semibold text-stone-700">Ready in Stock</span>
+            <span className="font-semibold text-stone-700">{t('marketplace.inStockOnly')}</span>
           </label>
         </div>
 
         {/* Right: Sort & Reset */}
         <div className="flex items-center gap-3 text-xs ml-auto">
           <div className="flex items-center gap-1.5">
-            <span className="text-stone-400 font-medium">Sort:</span>
+            <span className="text-stone-400 font-medium">{t('marketplace.sort')}</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-stone-800 font-semibold focus:outline-none"
             >
-              <option value="featured">Featured Collections</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="views">Most Popular</option>
+              <option value="featured">{t('marketplace.sortFeatured')}</option>
+              <option value="price-low">{t('marketplace.sortPriceLow')}</option>
+              <option value="price-high">{t('marketplace.sortPriceHigh')}</option>
+              <option value="views">{t('marketplace.sortViews')}</option>
             </select>
           </div>
 
           {(searchTerm || selectedCategory !== 'All Crafts' || selectedState !== 'All Regions' || onlyGiTagged || onlyInStock) && (
             <button
               onClick={resetFilters}
-              className="flex items-center gap-1 text-stone-500 hover:text-stone-800 font-medium"
+              className="flex items-center gap-1 text-stone-500 hover:text-stone-800 font-medium cursor-pointer"
             >
               <RotateCcw className="w-3 h-3" />
-              Reset
+              {t('marketplace.reset')}
             </button>
           )}
         </div>
@@ -196,9 +198,9 @@ export function MarketplacePage() {
 
       {/* Results Header */}
       <div className="flex items-center justify-between text-xs text-stone-500">
-        <span>Showing <strong>{filtered.length}</strong> handcrafted items</span>
+        <span>{t('marketplace.showing')} <strong>{filtered.length}</strong> {t('marketplace.handcraftedItems')}</span>
         <span className="flex items-center gap-1 text-[#C85A32] font-semibold">
-          <ShieldCheck className="w-4 h-4" /> 100% Direct Artisan Sourced
+          <ShieldCheck className="w-4 h-4" /> {t('marketplace.directGuarantee')}
         </span>
       </div>
 
@@ -208,15 +210,15 @@ export function MarketplacePage() {
           <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center mx-auto">
             <Compass className="w-6 h-6" />
           </div>
-          <h3 className="font-serif font-bold text-stone-900 text-lg">No crafts match your criteria</h3>
+          <h3 className="font-serif font-bold text-stone-900 text-lg">{t('marketplace.noResults')}</h3>
           <p className="text-xs text-stone-500">
-            Try loosening your filters or resetting to view all available regional handicrafts.
+            {t('marketplace.noResultsSub')}
           </p>
           <button
             onClick={resetFilters}
-            className="px-4 py-2 bg-[#C85A32] text-white text-xs font-semibold rounded-xl"
+            className="px-4 py-2 bg-[#C85A32] text-white text-xs font-semibold rounded-xl cursor-pointer"
           >
-            Show All Crafts
+            {t('marketplace.resetFilters')}
           </button>
         </div>
       ) : (

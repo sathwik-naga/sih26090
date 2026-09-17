@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "validate:i18n": "node scripts/validateTranslations.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },

@@ -25,7 +25,7 @@ import {
 
 export function LandingPage() {
   const { navigateTo, switchRole } = useApp();
-  const { t } = useLanguage();
+  const { t, tc, ts } = useLanguage();
   const [heroIndex, setHeroIndex] = useState(0);
   const heroCrafts = AUTHENTIC_CRAFT_COLLECTION.slice(0, 4);
   const activeHeroCraft = heroCrafts[heroIndex] || heroCrafts[0];
@@ -137,7 +137,7 @@ export function LandingPage() {
                     {/* Category pill */}
                     <div className="absolute top-3 left-3">
                       <span className="bg-white/95 backdrop-blur-sm text-stone-900 text-[11px] font-bold px-3 py-1 rounded-full shadow-xs">
-                        {activeHeroCraft.category}
+                        {tc(activeHeroCraft.category)}
                       </span>
                     </div>
 
@@ -154,7 +154,7 @@ export function LandingPage() {
                       </p>
                       <p className="text-xs text-stone-200 mt-1 flex items-center gap-1.5">
                         <MapPin className="w-3.5 h-3.5 text-[#EACBB8]" />
-                        <span>{activeHeroCraft.location}</span>
+                        <span>{ts(activeHeroCraft.location)}</span>
                         <span>•</span>
                         <span className="text-amber-300 font-semibold">{activeHeroCraft.artisan}</span>
                       </p>
@@ -164,8 +164,8 @@ export function LandingPage() {
                   {/* Curated Interactive Thumbnail Bar */}
                   <div className="pt-3 pb-1 px-1">
                     <div className="flex items-center justify-between text-[11px] font-semibold text-stone-400 mb-2">
-                      <span>Featured Heritage Crafts</span>
-                      <span className="text-[#C85A32]">{heroIndex + 1} of {heroCrafts.length}</span>
+                      <span>{t('hero.featuredHeritage')}</span>
+                      <span className="text-[#C85A32]">{heroIndex + 1} {t('hero.of')} {heroCrafts.length}</span>
                     </div>
                     <div className="grid grid-cols-4 gap-2">
                       {heroCrafts.map((craft, idx) => {
@@ -195,13 +195,13 @@ export function LandingPage() {
                   {/* Action link */}
                   <div className="p-3 pt-2 flex items-center justify-between text-xs border-t border-stone-100 mt-2">
                     <span className="text-stone-500 font-medium">
-                      100% Direct Master Artisan Made
+                      {t('hero.directMasterMade')}
                     </span>
                     <button
                       onClick={() => navigateTo('product-detail', activeHeroCraft.id)}
                       className="text-[#C85A32] font-bold hover:text-[#A33D1C] flex items-center gap-1 cursor-pointer"
                     >
-                      <span>Explore Craft</span>
+                      <span>{t('hero.exploreCraft')}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -441,20 +441,20 @@ export function LandingPage() {
               <div>
                 <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C85A32] uppercase tracking-wider mb-2">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Authentic Handcrafted Visuals</span>
+                  <span>{t('marketplaceSection.authenticVisuals')}</span>
                 </div>
                 <h3 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-                  Featured Heritage Craft Discoveries
+                  {t('marketplaceSection.featuredDiscoveries')}
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-500 mt-1">
-                  100% verified traditional creations handcrafted by master rural artisans.
+                  {t('marketplaceSection.discoveriesDesc')}
                 </p>
               </div>
               <button
                 onClick={handleBuyerJourney}
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C85A32] hover:text-[#A33D1C] cursor-pointer group"
               >
-                <span>View All 10 Masterpieces</span>
+                <span>{t('marketplaceSection.viewAllMasterpieces')}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
@@ -474,13 +474,13 @@ export function LandingPage() {
                     />
                     <div className="absolute top-3 left-3">
                       <span className="bg-white/90 backdrop-blur-xs text-stone-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-xs">
-                        {craft.category}
+                        {tc(craft.category)}
                       </span>
                     </div>
                     {craft.isFeatured && (
                       <div className="absolute top-3 right-3">
                         <span className="bg-[#C85A32] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
-                          Heritage Craft
+                          {t('marketplaceSection.heritageCraft')}
                         </span>
                       </div>
                     )}
@@ -489,8 +489,8 @@ export function LandingPage() {
                   <div className="p-4 flex-1 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-1.5 text-[11px] text-stone-500 mb-1.5">
-                        <MapPin className="w-3 h-3 text-[#C85A32]" />
-                        <span>{craft.location}</span>
+                        <MapPin className="w-3.5 h-3.5 text-[#C85A32]" />
+                        <span>{ts(craft.location)}</span>
                         <span>•</span>
                         <span className="text-stone-700 font-medium">{craft.artisan}</span>
                       </div>
@@ -501,13 +501,13 @@ export function LandingPage() {
 
                     <div className="mt-4 pt-3 border-t border-stone-200/60 flex items-center justify-between">
                       <div>
-                        <span className="text-[10px] text-stone-400 block font-medium">Direct Retail</span>
+                        <span className="text-[10px] text-stone-400 block font-medium">{t('productCard.directRetail')}</span>
                         <span className="font-bold text-stone-900 text-base">
                           ₹{craft.price.toLocaleString('en-IN')}
                         </span>
                       </div>
                       <span className="text-xs font-bold text-[#C85A32] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                        Explore
+                        {t('marketplaceSection.explore')}
                         <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>
